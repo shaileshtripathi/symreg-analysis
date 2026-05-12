@@ -52,7 +52,7 @@ jobs:
           git config user.name "GitHub Action"
           git add results/
           git diff --staged --quiet || git commit -m "Update plots"
-          git push --force
+          git push origin HEAD:main --force-with-lease
 
       - name: Upload plots
         uses: actions/upload-artifact@v4
