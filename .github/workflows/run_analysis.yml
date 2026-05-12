@@ -36,10 +36,10 @@ jobs:
 
       - name: Install scmamp
         run: |
-          Rscript -e 'tryCatch(
-            install.packages("scmamp", repos="https://cloud.r-project.org"),
-            error = function(e) remotes::install_github("b0rxa/scmamp")
-          )'
+          Rscript -e '
+            install.packages("remotes", repos="https://cloud.r-project.org")
+            remotes::install_github("b0rxa/scmamp", dependencies=TRUE, upgrade="never")
+          '
 
       - name: Run analysis
         run: Rscript R/analysis.R
