@@ -9,10 +9,9 @@ library(ggplot2)
 dir.create("results", showWarnings = FALSE)
 
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# Figure 1 – SRBench 2025 (first-principles + black-box tuning)
-# ══════════════════════════════════════════════════════════════════════════════
+####
+# Figure A and B: SRBench 2025 (first-principles and black-box tuning)
+###
 df_fp <- read_feather("data/srbench-srbench_2025/results/first-principles-tuning/results.feather")
 df_bb <- read_feather("data/srbench-srbench_2025/results/black-box-tuning/results.feather")
 
