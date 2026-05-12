@@ -1,6 +1,11 @@
-library(scmamp)
-library(PMCMRplus)
 library(colorspace)
+
+# Inlined from scmamp — avoids installing the package
+getNemenyiCD <- function(alpha, num.alg, num.problems) {
+  q_alpha <- qtukey(1 - alpha, nmeans = num.alg, df = Inf) / sqrt(2)
+  q_alpha * sqrt(num.alg * (num.alg + 1) / (6 * num.problems))
+}
+
 
 rank_row <- function(x) {
   n    <- length(x)
@@ -121,7 +126,7 @@ friedman_cd <- function(rank_matrix, alpha = 0.05) {
 
   q_alpha <- qtukey(1 - alpha, nmeans = k, df = Inf) / sqrt(2)
   CD      <- q_alpha * sqrt(k * (k + 1) / (6 * N))
-  cd_b    <- scmamp:::getNemenyiCD(alpha = alpha, num.alg = k, num.problems = N)
+  cd_b    <- getNemenyiCD(alpha = alpha, num.alg = k, num.problems = N)
 
   list(avg_ranks   = setNames(avg_ranks, colnames(rank_matrix)),
        CD          = CD,

@@ -18,6 +18,13 @@ jobs:
         with:
           r-version: '4.4'
 
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: r-pkgs-${{ hashFiles('**/run_analysis.yml') }}
+          restore-keys: r-pkgs-
+
       - name: Install system libraries
         run: |
           sudo apt-get update -qq
@@ -27,19 +34,12 @@ jobs:
             libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
             libgit2-dev cmake
 
-      - name: Install arrow
-        run: Rscript -e 'install.packages("arrow", repos="https://cloud.r-project.org")'
-
-      - name: Install CRAN packages
+      - name: Install R packages
         run: |
-          Rscript -e 'install.packages(c("dplyr","reshape2","ggplot2","colorspace","PMCMRplus","remotes"), repos="https://cloud.r-project.org")'
-
-      - name: Install scmamp
-        run: |
-          Rscript -e '
-            install.packages("remotes", repos="https://cloud.r-project.org")
-            remotes::install_github("b0rxa/scmamp", dependencies=TRUE, upgrade="never")
-          '
+          Rscript -e 'install.packages(
+            c("arrow","dplyr","reshape2","ggplot2","colorspace"),
+            repos="https://cloud.r-project.org"
+          )'
 
       - name: Run analysis
         run: Rscript R/analysis.R
