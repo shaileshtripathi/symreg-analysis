@@ -5,9 +5,9 @@ using Friedman / Nemenyi critical-difference plots and R² boxplots.
 
 ## Results
 
-CD diagrams (left) show average method ranks â€” lower is better, methods connected by a bar are statistically indistinguishable under the Friedman test with Nemenyi post-hoc analysis. Boxplots (right) show test RÂ² distributions across datasets.
+CD diagrams (left) show average method ranks â€” lower is better, methods connected by a bar are statistically indistinguishable under the Friedman test with Nemenyi post-hoc analysis. Boxplots (right) show test  R² distributions across datasets.
 
-**(A)** Phenomenological and first-principles datasets comprising 13 physics and astronomy equations evaluated across 27 algorithms. 
+**(A)** Phenomenological and first-principles datasets comprising 13 physics and astronomy equations evaluated across 27 algorithms.
 
 **(B)** Real-world black-box datasets comprising 12 datasets evaluated across 28 algorithms.
 
