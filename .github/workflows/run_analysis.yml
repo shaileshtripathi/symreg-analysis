@@ -44,6 +44,17 @@ jobs:
       - name: Run analysis
         run: Rscript R/analysis.R
 
+      - name: Commit plots to repo
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add results/
+          git diff --staged --quiet || git commit -m "Update plots"
+          git push
+
+      - name: Upload plots
+        uses: actions/upload-artifact@v4
+
       - name: Upload plots
         uses: actions/upload-artifact@v4
         with:
