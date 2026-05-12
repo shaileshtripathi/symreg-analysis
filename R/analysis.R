@@ -3,13 +3,11 @@ source("R/functions.R")
 library(arrow)
 library(dplyr)
 library(reshape2)
-library(scmamp)
 library(colorspace)
 library(ggplot2)
 
 dir.create("results", showWarnings = FALSE)
 
-## Figure C
 # ── PhySO data ────────────────────────────────────────────────────────────────
 physo_base <- "data/PhySO-main/benchmarking/FeynmanBenchmark/results"
 dphy <- rbind(
@@ -79,7 +77,7 @@ plotCDx(cdt$rank_matrix, sort(cdt$avg_ranks), cdt$CDb, cdt$N, cdt$k,
         alpha = cdt$alpha, cex = 1.5, mr = c(1.75, 3.75))
 dev.off()
 
-#  Boxplot 
+# ── Boxplot ───────────────────────────────────────────────────────────────────
 df_long <- melt(m, varnames = c("data", "algorithm"), value.name = "r2_test")
 df_long$algorithm <- factor(df_long$algorithm, levels = names(sort(cdt$avg_ranks)))
 
@@ -97,8 +95,9 @@ p_box <- ggplot(df_long, aes(x = algorithm, y = r2_test, fill = algorithm)) +
 
 ggsave("results/boxplot_feynman.png", p_box, width = 12, height = 6, dpi = 150)
 
-# Figure A and B – SRBench 2025 (first-principles + black-box tuning)
-
+# ══════════════════════════════════════════════════════════════════════════════
+# Figure 1 – SRBench 2025 (first-principles + black-box tuning)
+# ══════════════════════════════════════════════════════════════════════════════
 df_fp <- read_feather("data/srbench-srbench_2025/results/first-principles-tuning/results.feather")
 df_bb <- read_feather("data/srbench-srbench_2025/results/black-box-tuning/results.feather")
 
