@@ -3,7 +3,7 @@ name: Symbolic Regression Analysis
 on:
   push:
     branches: [main]
-  workflow_dispatch:   # adds manual "Run workflow" button in GitHub UI
+  workflow_dispatch:
 
 jobs:
   run-analysis:
@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true          # needed if you store .feather/.csv via Git LFS
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -24,33 +22,25 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libxml2-dev \
-            libfontconfig1-dev \
-            libharfbuzz-dev \
-            libfribidi-dev \
-            libfreetype6-dev \
-            libpng-dev \
-            libtiff5-dev \
-            libjpeg-dev \
-            libgit2-dev \
-            libarrow-dev
+            libcurl4-openssl-dev libssl-dev libxml2-dev \
+            libfontconfig1-dev libharfbuzz-dev libfribidi-dev \
+            libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev \
+            libgit2-dev cmake
 
-      - name: Install R packages
+      - name: Install arrow
+        run: Rscript -e 'install.packages("arrow", repos="https://cloud.r-project.org")'
+
+      - name: Install CRAN packages
         run: |
-          Rscript -e '
-            pkgs <- c("arrow","dplyr","reshape2","ggplot2","colorspace","PMCMRplus")
-            install.packages(pkgs, repos="https://cloud.r-project.org")
-            # scmamp is not on CRAN — install from GitHub
-            install.packages("remotes", repos="https://cloud.r-project.org")
-            remotes::install_github("b0rxa/scmamp")
-          '
+          Rscript -e 'install.packages(c("dplyr","reshape2","ggplot2","colorspace","PMCMRplus","remotes"), repos="https://cloud.r-project.org")'
+
+      - name: Install scmamp from GitHub
+        run: Rscript -e 'remotes::install_github("b0rxa/scmamp")'
 
       - name: Run analysis
         run: Rscript R/analysis.R
 
-      - name: Upload result plots
+      - name: Upload plots
         uses: actions/upload-artifact@v4
         with:
           name: plots-${{ github.run_number }}
