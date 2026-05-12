@@ -34,8 +34,12 @@ jobs:
         run: |
           Rscript -e 'install.packages(c("dplyr","reshape2","ggplot2","colorspace","PMCMRplus","remotes"), repos="https://cloud.r-project.org")'
 
-      - name: Install scmamp from GitHub
-        run: Rscript -e 'remotes::install_github("b0rxa/scmamp")'
+      - name: Install scmamp
+        run: |
+          Rscript -e 'tryCatch(
+            install.packages("scmamp", repos="https://cloud.r-project.org"),
+            error = function(e) remotes::install_github("b0rxa/scmamp")
+          )'
 
       - name: Run analysis
         run: Rscript R/analysis.R
