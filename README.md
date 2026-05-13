@@ -1,4 +1,4 @@
-# Symbolic Regression Comparison of Benchmark Data
+# Symbolic Regression Method Comparison of Benchmark Data
 
 Compares PhySO, TPSR, MSR, and SRBench algorithms on the Feynman benchmark
 using Friedman / Nemenyi critical-difference plots and R² boxplots.
