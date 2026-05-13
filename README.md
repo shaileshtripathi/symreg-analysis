@@ -1,11 +1,11 @@
 # Symbolic Regression Benchmark Analysis
 
 Compares PhySO, TPSR, MSR, and SRBench algorithms on the Feynman benchmark
-using Friedman / Nemenyi critical-difference plots and R² boxplots.
+using Friedman / Nemenyi critical-difference plots and RÂ² boxplots.
 
 ## Results
 
-CD diagrams (left) show average method ranks: lower is better, methods connected by a bar are statistically indistinguishable under the Friedman test with Nemenyi post-hoc analysis. Boxplots (right) show test  R² distributions across datasets.
+CD diagrams  show average method ranks: lower is better, methods connected by a bar are statistically indistinguishable under the Friedman test with Nemenyi post-hoc analysis. Boxplots show test  RÂ² distributions across datasets.
 
 **(A)** Phenomenological and first-principles datasets comprising 13 physics and astronomy equations evaluated across 27 algorithms.
 
